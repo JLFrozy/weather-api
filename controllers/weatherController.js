@@ -25,7 +25,7 @@ const getWeatherByLocation = async (req, res) => {
         if (!lat || !lon) {
             return res.status(400).json({ message: 'Veuillez spécifier des coordonnées' });
         }
-        const weatherData = await weatherService.getWeatherByCoordinates(lat, lon);
+        const weatherData = await getWeatherByCoordinates(lat, lon);
         res.status(200).json({
             success: true,
             data: weatherData
@@ -47,7 +47,7 @@ const compareWeather = async (req, res) => {
                 message: 'Envoie un tableau "cities" avec au moins 2 villes'
             });
         }
-        const weatherPromises = cities.map(city => weatherService.getWeatherByCity(city));
+        const weatherPromises = cities.map(city => getWeatherByCity(city));
         const weatherResults = await Promise.all(weatherPromises);
         
         res.status(200).json({
@@ -65,6 +65,6 @@ const compareWeather = async (req, res) => {
 
 module.exports = {
     getCurrentWeather,
-    getWeatherByCity,
+    getWeatherByLocation,
     compareWeather
 };
