@@ -62,3 +62,9 @@ const compareWeather = async (req, res) => {
     }
 };
 
+
+module.exports = {
+    getCurrentWeather,
+    getWeatherByCity,
+    compareWeather
+};
