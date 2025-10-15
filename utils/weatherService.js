@@ -43,3 +43,8 @@ const getWeatherByCoordinates = async (lat, lon) => {
         throw new Error('Erreur lors de la récupération des données météo par coordonnées');
     }
 };
+
+module.exports = {
+    getWeatherByCity,
+    getWeatherByCoordinates
+}
