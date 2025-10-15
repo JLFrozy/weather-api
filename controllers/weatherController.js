@@ -38,3 +38,27 @@ const getWeatherByLocation = async (req, res) => {
     }
 };
 
+const compareWeather = async (req, res) => {
+    try{
+        const {cities} = req.body;
+        if (!cities || cities.length < 2) {
+            return res.status(400).json({
+                success: false,
+                message: 'Envoie un tableau "cities" avec au moins 2 villes'
+            });
+        }
+        const weatherPromises = cities.map(city => weatherService.getWeatherByCity(city));
+        const weatherResults = await Promise.all(weatherPromises);
+        
+        res.status(200).json({
+            success: true,
+            data: weatherResults
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
