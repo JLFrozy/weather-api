@@ -18,3 +18,4 @@ const getCurrentWeather = async (req, res) => {
         });
     }
 }
+
