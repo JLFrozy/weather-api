@@ -27,3 +27,19 @@ const getWeatherByCity = async (city) => {
         throw new Error(error.response.data.message);
     }
 };
+
+const getWeatherByCoordinates = async (lat, lon) => {
+    try {
+        const apiKey = process.env.OPENWEATHER_API_KEY;
+        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}&lang=fr`;
+        const response = await axios.get(url);
+        return {
+            ville: response.data.name,
+            temperature: response.data.main.temp,
+            description: response.data.weather[0].description,
+            humidite: response.data.weather[0].humidity
+        };
+    } catch (error) {
+        throw new Error('Erreur lors de la récupération des données météo par coordonnées');
+    }
+};
